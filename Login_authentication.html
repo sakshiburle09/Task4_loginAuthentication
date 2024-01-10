@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Authentication</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #loginContainer {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div id="loginContainer">
+    <h1>Login</h1>
+    <input type="text" id="username" placeholder="Username" required>
+    <br>
+    <input type="password" id="password" placeholder="Password" required>
+    <br>
+    <button onclick="login()">Login</button>
+    <p id="errorMessage" style="color: red;"></p>
+    <p>Don't have an account? <a href="#" onclick="showRegister()">Register</a></p>
+
+    <div id="registerForm" style="display: none;">
+        <h2>Register</h2>
+        <input type="text" id="newUsername" placeholder="New Username" required>
+        <br>
+        <input type="password" id="newPassword" placeholder="New Password" required>
+        <br>
+        <button onclick="register()">Register</button>
+        <p id="registerMessage" style="color: green;"></p>
+    </div>
+</div>
+
+<script>
+    const users = [
+        { username: 'user1', password: 'pass1' },
+        { username: 'user2', password: 'pass2' }
+    ];
+
+    function login() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        const user = users.find(u => u.username === username && u.password === password);
+
+        if (user) {
+            // Redirect to a secured page or perform other actions.
+            document.getElementById('errorMessage').innerText = '';
+            alert('Login successful! Redirecting...');
+        } else {
+            document.getElementById('errorMessage').innerText = 'Invalid username or password';
+        }
+    }
+
+    function showRegister() {
+        document.getElementById('registerForm').style.display = 'block';
+    }
+
+    function register() {
+        const newUsername = document.getElementById('newUsername').value;
+        const newPassword = document.getElementById('newPassword').value;
+
+        if (users.some(u => u.username === newUsername)) {
+            document.getElementById('registerMessage').innerText = 'Username already exists';
+        } else {
+            users.push({ username: newUsername, password: newPassword });
+            document.getElementById('registerMessage').innerText = 'Registration successful!';
+        }
+    }
+</script>
+
+</body>
+</html>
